@@ -1,0 +1,197 @@
+[
+  {
+    "model_name": "gemma-4",
+    "litellm_params": {
+      "model": "vertex_ai/google/gemma-4-26b-a4b-it-maas"
+    },
+    "model_info": {
+      "mode": "chat",
+      "litellm_provider": "vertex_ai-openai_models",
+      "supported_endpoints": null,
+      "max_input_tokens": 262144,
+      "max_output_tokens": 128000,
+      "input_cost_per_token": 1.5e-7,
+      "output_cost_per_token": 6e-7,
+      "cache_read_input_token_cost": 1.5e-8,
+      "cache_creation_input_token_cost": null,
+      "supports_vision": true,
+      "supports_reasoning": null
+    }
+  },
+  {
+    "model_name": "claude-opus-4-8",
+    "litellm_params": {
+      "model": "vertex_ai/claude-opus-4-8"
+    },
+    "model_info": {
+      "mode": "chat",
+      "litellm_provider": "vertex_ai-anthropic_models",
+      "supported_endpoints": null,
+      "max_input_tokens": 1000000,
+      "max_output_tokens": 128000,
+      "input_cost_per_token": 0.000005,
+      "output_cost_per_token": 0.000025,
+      "cache_read_input_token_cost": 5e-7,
+      "cache_creation_input_token_cost": 0.00000625,
+      "supports_vision": true,
+      "supports_reasoning": true
+    }
+  },
+  {
+    "model_name": "gemini-3.5-flash",
+    "litellm_params": {
+      "model": "vertex_ai/gemini-3.5-flash"
+    },
+    "model_info": {
+      "mode": "chat",
+      "litellm_provider": "vertex_ai",
+      "supported_endpoints": ["/v1/chat/completions", "/v1/completions", "/v1/batch"],
+      "max_input_tokens": 1048576,
+      "max_output_tokens": 65535,
+      "input_cost_per_token": 0.0000015,
+      "output_cost_per_token": 0.000009,
+      "cache_read_input_token_cost": 1.5e-7,
+      "cache_creation_input_token_cost": null,
+      "supports_vision": true,
+      "supports_reasoning": true
+    }
+  },
+  {
+    "model_name": "text-embedding-005",
+    "litellm_params": {
+      "model": "vertex_ai/text-embedding-005"
+    },
+    "model_info": {
+      "mode": "embedding",
+      "litellm_provider": "vertex_ai-embedding-models",
+      "supported_endpoints": null,
+      "max_input_tokens": 2048,
+      "max_output_tokens": null,
+      "input_cost_per_token": 1e-7,
+      "output_cost_per_token": 0,
+      "cache_read_input_token_cost": null,
+      "cache_creation_input_token_cost": null,
+      "supports_vision": null,
+      "supports_reasoning": null
+    }
+  },
+  {
+    "model_name": "glm-5.3-flash-or",
+    "litellm_params": {
+      "model": "openrouter/z-ai/glm-5.3-flash"
+    },
+    "model_info": {
+      "mode": "chat",
+      "litellm_provider": "openrouter",
+      "supported_endpoints": null,
+      "max_input_tokens": 1310720,
+      "max_output_tokens": 131072,
+      "input_cost_per_token": 1.5e-7,
+      "output_cost_per_token": 5e-7,
+      "cache_read_input_token_cost": 3e-8,
+      "cache_creation_input_token_cost": null,
+      "supports_vision": true,
+      "supports_reasoning": null
+    }
+  },
+  {
+    "model_name": "gpt-6.1-terra-oai",
+    "litellm_params": {
+      "model": "openai/gpt-6.1-terra"
+    },
+    "model_info": {
+      "mode": "chat",
+      "litellm_provider": "openai",
+      "supported_endpoints": ["/v1/chat/completions", "/v1/batch", "/v1/responses"],
+      "max_input_tokens": 922000,
+      "max_output_tokens": 128000,
+      "input_cost_per_token": 0.0000011,
+      "output_cost_per_token": 0.0000055,
+      "cache_read_input_token_cost": 5.5e-8,
+      "cache_creation_input_token_cost": 0.000001375,
+      "supports_vision": true,
+      "supports_reasoning": true
+    }
+  },
+  {
+    "model_name": "gpt-6.2-sol-oai",
+    "litellm_params": {
+      "model": "openai/gpt-6.2-sol"
+    },
+    "model_info": {
+      "mode": "chat",
+      "litellm_provider": "openai",
+      "supported_endpoints": null,
+      "max_input_tokens": 922000,
+      "max_output_tokens": 128000,
+      "input_cost_per_token": 0.0000022,
+      "output_cost_per_token": 0.000011,
+      "cache_read_input_token_cost": 1.1e-7,
+      "cache_creation_input_token_cost": 0.00000275,
+      "supports_vision": true,
+      "supports_reasoning": true
+    }
+  },
+  {
+    "model_name": "gemini-nano-banana-2.1-global",
+    "litellm_params": {
+      "model": "vertex_ai/gemini-nano-banana-2.1"
+    },
+    "model_info": {
+      "mode": "image_generation",
+      "litellm_provider": "vertex_ai-language-models",
+      "supported_endpoints": [
+        "/v1/chat/completions",
+        "/v1/images/generations",
+        "/v1/images/edits",
+        "/v1/batch"
+      ],
+      "max_input_tokens": 131072,
+      "max_output_tokens": 32768,
+      "input_cost_per_token": 0.0000015,
+      "output_cost_per_token": 0.0000075,
+      "cache_read_input_token_cost": 1.5e-7,
+      "cache_creation_input_token_cost": null,
+      "supports_vision": true,
+      "supports_reasoning": true
+    }
+  },
+  {
+    "model_name": "smart_glm_router",
+    "litellm_params": {
+      "model": "auto_router/complexity_router"
+    },
+    "model_info": {
+      "mode": null,
+      "litellm_provider": "auto_router",
+      "supported_endpoints": null,
+      "max_input_tokens": null,
+      "max_output_tokens": null,
+      "input_cost_per_token": null,
+      "output_cost_per_token": null,
+      "cache_read_input_token_cost": null,
+      "cache_creation_input_token_cost": null,
+      "supports_vision": null,
+      "supports_reasoning": null
+    }
+  },
+  {
+    "model_name": "whisper-large-v3-turbo-or",
+    "litellm_params": {
+      "model": "openai/openai/whisper-large-v3-turbo"
+    },
+    "model_info": {
+      "mode": "audio_transcription",
+      "litellm_provider": "openai",
+      "supported_endpoints": null,
+      "max_input_tokens": null,
+      "max_output_tokens": null,
+      "input_cost_per_token": null,
+      "output_cost_per_token": null,
+      "cache_read_input_token_cost": null,
+      "cache_creation_input_token_cost": null,
+      "supports_vision": null,
+      "supports_reasoning": null
+    }
+  }
+]
