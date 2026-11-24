@@ -10,6 +10,7 @@ import {
   isChatRoute,
   normalizeBaseUrl,
   selectApi,
+  supportsReasoning,
   type ModelInfoEntry,
 } from "../src/discover.ts";
 
@@ -95,6 +96,25 @@ describe("selectApi", () => {
         },
       }),
       "openai-completions",
+    );
+  });
+});
+
+describe("supportsReasoning", () => {
+  it("is true from supports_reasoning or from reasoning_effort in supported_openai_params", () => {
+    assert.equal(supportsReasoning(byName("claude-opus-4-8")), true);
+    assert.equal(
+      supportsReasoning(byName("glm-5.3-flash-or")),
+      true,
+      "OpenRouter route: supports_reasoning null",
+    );
+    assert.equal(supportsReasoning(byName("gemma-4")), false);
+    assert.equal(
+      supportsReasoning({
+        model_name: "x",
+        model_info: { supports_reasoning: false, supported_openai_params: ["temperature"] },
+      }),
+      false,
     );
   });
 });

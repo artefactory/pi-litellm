@@ -25,6 +25,7 @@ export interface ModelInfoEntry {
     cache_creation_input_token_cost?: number | null;
     supports_vision?: boolean | null;
     supports_reasoning?: boolean | null;
+    supported_openai_params?: string[] | null;
   };
 }
 
@@ -102,6 +103,19 @@ function positiveInt(value: number | null | undefined, fallback: number): number
     : fallback;
 }
 
+/**
+ * LiteLLM sets `supports_reasoning` only for models in its own model map; routes served
+ * through OpenRouter report `null` there while still accepting `reasoning_effort`, which
+ * LiteLLM lists in `supported_openai_params`. Either signal means pi may offer thinking levels.
+ */
+export function supportsReasoning(entry: ModelInfoEntry): boolean {
+  const info = entry.model_info ?? {};
+  return (
+    info.supports_reasoning === true ||
+    (info.supported_openai_params ?? []).includes("reasoning_effort")
+  );
+}
+
 export function toDiscoveredModel(entry: ModelInfoEntry): DiscoveredModel {
   const info = entry.model_info ?? {};
   const contextWindow = positiveInt(info.max_input_tokens, DEFAULT_CONTEXT_WINDOW);
@@ -113,7 +127,7 @@ export function toDiscoveredModel(entry: ModelInfoEntry): DiscoveredModel {
   return {
     id: entry.model_name,
     api: selectApi(entry),
-    reasoning: info.supports_reasoning === true,
+    reasoning: supportsReasoning(entry),
     vision: info.supports_vision === true,
     contextWindow,
     maxTokens,

@@ -52,6 +52,14 @@ limit, zero cost and Chat Completions transport.
 The list is persisted by pi (`~/.pi/agent/models-store.json`) so startup works offline.
 Cached models are shown only while the stored credential points at the proxy they came from.
 
+## Thinking levels
+
+A model gets pi's thinking selector when LiteLLM reports `supports_reasoning: true` **or** lists
+`reasoning_effort` in `supported_openai_params`. The second rule matters for routes LiteLLM
+serves through OpenRouter (GLM, Kimi, DeepSeek): LiteLLM reports `supports_reasoning: null`
+for them while still translating `reasoning_effort`. Levels are pi's defaults; no per-model map.
+Models that think by default (GLM, Kimi) still think at `off`, since no "none" value is sent.
+
 ## Transport selection
 
 Decided from LiteLLM metadata, never from the alias name you chose on the proxy:

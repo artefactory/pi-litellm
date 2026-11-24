@@ -15,7 +15,8 @@
       "cache_read_input_token_cost": 1.5e-8,
       "cache_creation_input_token_cost": null,
       "supports_vision": true,
-      "supports_reasoning": null
+      "supports_reasoning": null,
+      "supported_openai_params": []
     }
   },
   {
@@ -29,12 +30,13 @@
       "supported_endpoints": null,
       "max_input_tokens": 1000000,
       "max_output_tokens": 128000,
-      "input_cost_per_token": 0.000005,
-      "output_cost_per_token": 0.000025,
+      "input_cost_per_token": 5e-6,
+      "output_cost_per_token": 2.5e-5,
       "cache_read_input_token_cost": 5e-7,
-      "cache_creation_input_token_cost": 0.00000625,
+      "cache_creation_input_token_cost": 6.25e-6,
       "supports_vision": true,
-      "supports_reasoning": true
+      "supports_reasoning": true,
+      "supported_openai_params": ["reasoning_effort", "thinking"]
     }
   },
   {
@@ -48,12 +50,13 @@
       "supported_endpoints": ["/v1/chat/completions", "/v1/completions", "/v1/batch"],
       "max_input_tokens": 1048576,
       "max_output_tokens": 65535,
-      "input_cost_per_token": 0.0000015,
-      "output_cost_per_token": 0.000009,
+      "input_cost_per_token": 1.5e-6,
+      "output_cost_per_token": 9e-6,
       "cache_read_input_token_cost": 1.5e-7,
       "cache_creation_input_token_cost": null,
       "supports_vision": true,
-      "supports_reasoning": true
+      "supports_reasoning": true,
+      "supported_openai_params": ["reasoning_effort", "thinking"]
     }
   },
   {
@@ -91,7 +94,8 @@
       "cache_read_input_token_cost": 3e-8,
       "cache_creation_input_token_cost": null,
       "supports_vision": true,
-      "supports_reasoning": null
+      "supports_reasoning": null,
+      "supported_openai_params": ["reasoning_effort", "thinking"]
     }
   },
   {
@@ -105,12 +109,13 @@
       "supported_endpoints": ["/v1/chat/completions", "/v1/batch", "/v1/responses"],
       "max_input_tokens": 922000,
       "max_output_tokens": 128000,
-      "input_cost_per_token": 0.0000011,
-      "output_cost_per_token": 0.0000055,
+      "input_cost_per_token": 1.1e-6,
+      "output_cost_per_token": 5.5e-6,
       "cache_read_input_token_cost": 5.5e-8,
-      "cache_creation_input_token_cost": 0.000001375,
+      "cache_creation_input_token_cost": 1.375e-6,
       "supports_vision": true,
-      "supports_reasoning": true
+      "supports_reasoning": true,
+      "supported_openai_params": ["reasoning_effort"]
     }
   },
   {
@@ -124,12 +129,13 @@
       "supported_endpoints": null,
       "max_input_tokens": 922000,
       "max_output_tokens": 128000,
-      "input_cost_per_token": 0.0000022,
-      "output_cost_per_token": 0.000011,
+      "input_cost_per_token": 2.2e-6,
+      "output_cost_per_token": 1.1e-5,
       "cache_read_input_token_cost": 1.1e-7,
-      "cache_creation_input_token_cost": 0.00000275,
+      "cache_creation_input_token_cost": 2.75e-6,
       "supports_vision": true,
-      "supports_reasoning": true
+      "supports_reasoning": true,
+      "supported_openai_params": ["reasoning_effort"]
     }
   },
   {
@@ -148,8 +154,8 @@
       ],
       "max_input_tokens": 131072,
       "max_output_tokens": 32768,
-      "input_cost_per_token": 0.0000015,
-      "output_cost_per_token": 0.0000075,
+      "input_cost_per_token": 1.5e-6,
+      "output_cost_per_token": 7.5e-6,
       "cache_read_input_token_cost": 1.5e-7,
       "cache_creation_input_token_cost": null,
       "supports_vision": true,
