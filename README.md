@@ -10,6 +10,7 @@ scratch and kept deliberately small (about 400 lines, no runtime dependencies).
   Streaming is delegated to pi's built-in implementations; this extension contains no
   request or stream code.
 - `/litellm-refresh` re-reads the proxy's catalog without logging in again.
+- Optional: the proxy's MCP tools, exposed through pi's own `/mcp` (off by default, see below).
 
 ## Install
 
@@ -28,6 +29,7 @@ is stripped) and your LiteLLM virtual key. Models appear in `/model` right after
 
 If you previously used `npm:pi-provider-litellm`, remove it first (`pi remove npm:pi-provider-litellm`):
 both register the provider id `litellm`. Your existing credential in `auth.json` is reused as is.
+Its `litellm.mcp` settings block is read here too, except that MCP is off unless `enabled` is true.
 
 ### Without `/login` (CI, containers)
 
@@ -74,11 +76,41 @@ A `null` `supported_endpoints` means LiteLLM has no model-map entry for that rou
 on Chat Completions rather than guessing. Requests still go to your proxy with your virtual
 key; the proxy's upstream credentials and budgets apply as for any other request.
 
+## MCP tools (opt-in)
+
+LiteLLM serves every MCP server your key may reach as one endpoint at `<root>/mcp`, with tool
+names prefixed by the server name (`github-search_code`). When enabled, this extension registers
+that endpoint as a pi MCP server named `litellm`; pi's built-in MCP client connects to it, lists
+the tools as `mcp__litellm__<tool>` and calls them. pi sends your LiteLLM key itself
+(`auth: { provider: "litellm" }`); the extension never copies it.
+
+Enable it in `~/.pi/agent/settings.json`:
+
+```json
+{
+  "litellm": {
+    "mcp": { "enabled": true, "exposure": "codemode" }
+  }
+}
+```
+
+`exposure` is optional and means what it means in pi's `mcp.json`: `codemode` (pi's default,
+callable from codemode scripts), `deferred` (loaded by `tool_search`), `direct` (declared on every
+request) or `hidden`. `LITELLM_ENABLE_MCP=1` / `0` overrides `enabled` for one run.
+
+Use `/mcp` to see the server's state, tools and errors, and `/mcp reconnect litellm` after the
+proxy's server list changes. The server is registered at session start and re-checked before each
+turn, so a `/login litellm` to another proxy moves it, and a logout removes it. A key with no MCP
+servers granted shows a connection error in `/mcp` (LiteLLM answers 403); ask your proxy admin.
+
+The proxy decides which tools exist and what they return. Enable this only for a proxy whose
+administrators you trust with tool descriptions the model reads.
+
 ## Limits
 
 - One proxy, one credential, provider id `litellm`. No aliases.
-- No SSO/OIDC login, MCP bridge, Skills injection, budget display, image or classifier models.
-  The point of this extension is to not have those.
+- No SSO/OIDC login, Skills injection, budget display, image or classifier models, MCP
+  pre-flight checks. The point of this extension is to not have those.
 - Metadata is taken from the proxy as is. If a route advertises a `max_output_tokens` its
   backend rejects, fix it in the proxy config.
 

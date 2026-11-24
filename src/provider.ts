@@ -85,7 +85,11 @@ export async function resolveRoot(
 export async function login(
   interaction: ProviderAuthInteraction,
   discover: typeof discoverModels = discoverModels,
+  onLoginStart?: () => void,
 ): Promise<ApiKeyCredential> {
+  // Runs before pi stores anything, so a consumer of the current credential (the MCP
+  // bridge) can let go of the old proxy before the new key exists.
+  onLoginStart?.();
   const url = await interaction.prompt({
     type: "text",
     message: "LiteLLM proxy URL",
@@ -107,6 +111,8 @@ export async function login(
 export interface CreateLiteLLMProviderOptions {
   /** Injected for tests. */
   discover?: typeof discoverModels;
+  /** Called when `/login litellm` starts, before any prompt and before the credential is stored. */
+  onLoginStart?: () => void;
 }
 
 export function createLiteLLMProvider(
@@ -120,7 +126,7 @@ export function createLiteLLMProvider(
     auth: {
       apiKey: {
         name: `${PROVIDER_NAME} API key`,
-        login: (interaction) => login(interaction, discover),
+        login: (interaction) => login(interaction, discover, options.onLoginStart),
         async check({ ctx, credential }) {
           const root = await resolveRoot(ctx, credential);
           if (!root) return undefined;
