@@ -149,6 +149,23 @@ describe("login", () => {
     assert.deepEqual(notices, ["progress", "info"]);
   });
 
+  it("calls onLoginStart before any prompt", async () => {
+    const order: string[] = [];
+    await login(
+      {
+        signal: new AbortController().signal,
+        prompt: async (p) => {
+          order.push("prompt");
+          return p.type === "text" ? ROOT : "k";
+        },
+        notify: () => {},
+      },
+      async () => ({ models: [], source: "/v1/models" as const }),
+      () => order.push("start"),
+    );
+    assert.deepEqual(order, ["start", "prompt", "prompt"]);
+  });
+
   it("rejects empty keys and bad URLs before contacting anything", async () => {
     let probed = false;
     const probe = async () => {
